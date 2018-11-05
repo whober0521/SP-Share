@@ -66,48 +66,22 @@ namespace SP_Share.Controllers
             return View();
         }
 
-        ////
-        //// POST: /Account/Register
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Register(RegisterViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-        //        var result = await UserManager.CreateAsync(user, model.Password);
-        //        if (result.Succeeded)
-        //        {
-        //            await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+        //POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(User model)
+        {
+            if (ModelState.IsValid && userSrv.Insert(model))
+            {
+                Session["IsAdmin"] = false;
+                Session["UserName"] = model.Name;
 
-        //            // 如需如何啟用帳戶確認和密碼重設的詳細資訊，請造訪 http://go.microsoft.com/fwlink/?LinkID=320771
-        //            // 傳送包含此連結的電子郵件
-        //            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-        //            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-        //            // await UserManager.SendEmailAsync(user.Id, "確認您的帳戶", "請按一下此連結確認您的帳戶 <a href=\"" + callbackUrl + "\">這裏</a>");
+                return RedirectToAction("Index", "Home");
+            }
 
-        //            return RedirectToAction("Index", "Home");
-        //        }
-        //        AddErrors(result);
-        //    }
-
-        //    // 如果執行到這裡，發生某項失敗，則重新顯示表單
-        //    return View(model);
-        //}
-
-        ////
-        //// GET: /Account/ConfirmEmail
-        //[AllowAnonymous]
-        //public async Task<ActionResult> ConfirmEmail(string userId, string code)
-        //{
-        //    if (userId == null || code == null)
-        //    {
-        //        return View("Error");
-        //    }
-        //    var result = await UserManager.ConfirmEmailAsync(userId, code);
-        //    return View(result.Succeeded ? "ConfirmEmail" : "Error");
-        //}
+            return View(model);
+        }
 
         ////
         //// GET: /Account/ForgotPassword

@@ -37,6 +37,12 @@ namespace SP_Share.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        [NotMapped]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "Password not matched")]
+        public string ConfirmPassword { get; set; }
+
         [Required]
         [Display(Name = "Group")]
         public int Group { get; set; }
