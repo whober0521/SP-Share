@@ -1,53 +1,18 @@
-﻿//using System.Linq;
-//using System.Threading.Tasks;
-//using System.Web;
-//using Microsoft.AspNet.Identity;
-//using Microsoft.AspNet.Identity.Owin;
-//using Microsoft.Owin.Security;
-//using SP_Share.Models;
+﻿using SP_Share.Services;
+using SP_Share.Models;
 using System.Web.Mvc;
 
 namespace SP_Share.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AccountController : Controller
     {
-        //private ApplicationSignInManager _signInManager;
-        //private ApplicationUserManager _userManager;
+        UserService userSrv;
 
         public AccountController()
         {
+            userSrv = new UserService();
         }
-
-        //public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        //{
-        //    UserManager = userManager;
-        //    SignInManager = signInManager;
-        //}
-
-        //public ApplicationSignInManager SignInManager
-        //{
-        //    get
-        //    {
-        //        return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-        //    }
-        //    private set 
-        //    { 
-        //        _signInManager = value; 
-        //    }
-        //}
-
-        //public ApplicationUserManager UserManager
-        //{
-        //    get
-        //    {
-        //        return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //    }
-        //    private set
-        //    {
-        //        _userManager = value;
-        //    }
-        //}
 
         // GET: /Account/Login
         [AllowAnonymous]
@@ -58,78 +23,22 @@ namespace SP_Share.Controllers
             return View();
         }
 
-        ////
-        //// POST: /Account/Login
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult  LoginUser(User model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-        //    // 這不會計算為帳戶鎖定的登入失敗
-        //    // 若要啟用密碼失敗來觸發帳戶鎖定，請變更為 shouldLockout: true
-        //    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-        //    switch (result)
-        //    {
-        //        case SignInStatus.Success:
-        //            return RedirectToLocal(returnUrl);
-        //        case SignInStatus.LockedOut:
-        //            return View("Lockout");
-        //        case SignInStatus.RequiresVerification:
-        //            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-        //        case SignInStatus.Failure:
-        //        default:
-        //            ModelState.AddModelError("", "登入嘗試失試。");
-        //            return View(model);
-        //    }
-        //}
-
-        ////
-        //// GET: /Account/VerifyCode
-        //[AllowAnonymous]
-        //public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
-        //{
-        //    // 需要使用者已透過使用者名稱/密碼或外部登入進行登入
-        //    if (!await SignInManager.HasBeenVerifiedAsync())
-        //    {
-        //        return View("Error");
-        //    }
-        //    return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        //}
-
-        ////
-        //// POST: /Account/VerifyCode
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-
-        //    // 下列程式碼保護兩個因素碼不受暴力密碼破解攻擊。 
-        //    // 如果使用者輸入不正確的代碼來表示一段指定的時間，則使用者帳戶 
-        //    // 會有一段指定的時間遭到鎖定。 
-        //    // 您可以在 IdentityConfig 中設定帳戶鎖定設定
-        //    var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
-        //    switch (result)
-        //    {
-        //        case SignInStatus.Success:
-        //            return RedirectToLocal(model.ReturnUrl);
-        //        case SignInStatus.LockedOut:
-        //            return View("Lockout");
-        //        case SignInStatus.Failure:
-        //        default:
-        //            ModelState.AddModelError("", "代碼無效。");
-        //            return View(model);
-        //    }
-        //}
+            if (userSrv.Login(model.Account, model.Password))
+                return RedirectToLocal(returnUrl);
+            else
+                return RedirectToAction("Login");
+        }
 
         // GET: /Account/Register
         [AllowAnonymous]
@@ -439,14 +348,14 @@ namespace SP_Share.Controllers
         //    }
         //}
 
-        //private ActionResult RedirectToLocal(string returnUrl)
-        //{
-        //    if (Url.IsLocalUrl(returnUrl))
-        //    {
-        //        return Redirect(returnUrl);
-        //    }
-        //    return RedirectToAction("Index", "Home");
-        //}
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
+        }
 
         //internal class ChallengeResult : HttpUnauthorizedResult
         //{

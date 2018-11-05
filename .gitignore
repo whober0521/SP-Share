@@ -4,3 +4,107 @@
 /.vs/SP Share/v15/Server/sqlite3/storage.ide-shm
 /.vs/SP Share/v15/Server/sqlite3/storage.ide-wal
 /.vs/config/applicationhost.config
+/SP Share/bin/Antlr3.Runtime.dll
+/SP Share/bin/Antlr3.Runtime.pdb
+/SP Share/bin/ApplicationInsights.config
+/SP Share/bin/EntityFramework.SqlServer.dll
+/SP Share/bin/EntityFramework.SqlServer.xml
+/SP Share/bin/EntityFramework.dll
+/SP Share/bin/EntityFramework.xml
+/SP Share/bin/Microsoft.AI.Agent.Intercept.dll
+/SP Share/bin/Microsoft.AI.DependencyCollector.dll
+/SP Share/bin/Microsoft.AI.DependencyCollector.xml
+/SP Share/bin/Microsoft.AI.PerfCounterCollector.dll
+/SP Share/bin/Microsoft.AI.ServerTelemetryChannel.dll
+/SP Share/bin/Microsoft.AI.Web.dll
+/SP Share/bin/Microsoft.AI.Web.xml
+/SP Share/bin/Microsoft.AI.WindowsServer.dll
+/SP Share/bin/Microsoft.AI.WindowsServer.xml
+/SP Share/bin/Microsoft.ApplicationInsights.dll
+/SP Share/bin/Microsoft.AspNet.Identity.Core.dll
+/SP Share/bin/Microsoft.AspNet.Identity.Core.xml
+/SP Share/bin/Microsoft.AspNet.Identity.EntityFramework.dll
+/SP Share/bin/Microsoft.AspNet.Identity.EntityFramework.xml
+/SP Share/bin/Microsoft.AspNet.TelemetryCorrelation.dll
+/SP Share/bin/Microsoft.AspNet.TelemetryCorrelation.xml
+/SP Share/bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+/SP Share/bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+/SP Share/bin/Microsoft.Web.Infrastructure.dll
+/SP Share/bin/Newtonsoft.Json.dll
+/SP Share/bin/Newtonsoft.Json.xml
+/SP Share/bin/SP Share.dll
+/SP Share/bin/SP Share.dll.config
+/SP Share/bin/SP Share.pdb
+/SP Share/bin/System.Diagnostics.DiagnosticSource.dll
+/SP Share/bin/System.Diagnostics.DiagnosticSource.xml
+/SP Share/bin/System.Web.Helpers.dll
+/SP Share/bin/System.Web.Helpers.xml
+/SP Share/bin/System.Web.Mvc.dll
+/SP Share/bin/System.Web.Mvc.xml
+/SP Share/bin/System.Web.Optimization.dll
+/SP Share/bin/System.Web.Optimization.xml
+/SP Share/bin/System.Web.Razor.dll
+/SP Share/bin/System.Web.Razor.xml
+/SP Share/bin/System.Web.WebPages.Deployment.dll
+/SP Share/bin/System.Web.WebPages.Deployment.xml
+/SP Share/bin/System.Web.WebPages.Razor.dll
+/SP Share/bin/System.Web.WebPages.Razor.xml
+/SP Share/bin/System.Web.WebPages.dll
+/SP Share/bin/System.Web.WebPages.xml
+/SP Share/bin/WebGrease.dll
+/SP Share/bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll
+/SP Share/bin/roslyn/Microsoft.CSharp.Core.targets
+/SP Share/bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll
+/SP Share/bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll
+/SP Share/bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll
+/SP Share/bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll
+/SP Share/bin/roslyn/Microsoft.CodeAnalysis.dll
+/SP Share/bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll
+/SP Share/bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll
+/SP Share/bin/roslyn/Microsoft.Managed.Core.targets
+/SP Share/bin/roslyn/Microsoft.VisualBasic.Core.targets
+/SP Share/bin/roslyn/System.AppContext.dll
+/SP Share/bin/roslyn/System.Collections.Immutable.dll
+/SP Share/bin/roslyn/System.Console.dll
+/SP Share/bin/roslyn/System.Diagnostics.FileVersionInfo.dll
+/SP Share/bin/roslyn/System.Diagnostics.StackTrace.dll
+/SP Share/bin/roslyn/System.IO.Compression.dll
+/SP Share/bin/roslyn/System.IO.FileSystem.Primitives.dll
+/SP Share/bin/roslyn/System.IO.FileSystem.dll
+/SP Share/bin/roslyn/System.IO.Pipes.AccessControl.dll
+/SP Share/bin/roslyn/System.IO.Pipes.dll
+/SP Share/bin/roslyn/System.Reflection.Metadata.dll
+/SP Share/bin/roslyn/System.Security.AccessControl.dll
+/SP Share/bin/roslyn/System.Security.Claims.dll
+/SP Share/bin/roslyn/System.Security.Cryptography.Algorithms.dll
+/SP Share/bin/roslyn/System.Security.Cryptography.Encoding.dll
+/SP Share/bin/roslyn/System.Security.Cryptography.Primitives.dll
+/SP Share/bin/roslyn/System.Security.Cryptography.X509Certificates.dll
+/SP Share/bin/roslyn/System.Security.Principal.Windows.dll
+/SP Share/bin/roslyn/System.Text.Encoding.CodePages.dll
+/SP Share/bin/roslyn/System.ValueTuple.dll
+/SP Share/bin/roslyn/System.Xml.ReaderWriter.dll
+/SP Share/bin/roslyn/System.Xml.XPath.XDocument.dll
+/SP Share/bin/roslyn/System.Xml.XPath.dll
+/SP Share/bin/roslyn/System.Xml.XmlDocument.dll
+/SP Share/bin/roslyn/VBCSCompiler.exe
+/SP Share/bin/roslyn/VBCSCompiler.exe.config
+/SP Share/bin/roslyn/csc.exe
+/SP Share/bin/roslyn/csc.exe.config
+/SP Share/bin/roslyn/csc.rsp
+/SP Share/bin/roslyn/csi.exe
+/SP Share/bin/roslyn/csi.exe.config
+/SP Share/bin/roslyn/csi.rsp
+/SP Share/bin/roslyn/vbc.exe
+/SP Share/bin/roslyn/vbc.exe.config
+/SP Share/bin/roslyn/vbc.rsp
+/SP Share/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/SP Share/obj/Debug/SP Share.csproj.CopyComplete
+/SP Share/obj/Debug/SP Share.csproj.CoreCompileInputs.cache
+/SP Share/obj/Debug/SP Share.csproj.FileListAbsolute.txt
+/SP Share/obj/Debug/SP Share.csprojAssemblyReference.cache
+/SP Share/obj/Debug/SP Share.dll
+/SP Share/obj/Debug/SP Share.pdb
+/SP Share/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+/SP Share/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+/SP Share/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs

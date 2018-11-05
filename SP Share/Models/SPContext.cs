@@ -21,7 +21,7 @@ namespace SP_Share.Models
         [DisplayName("Login Name")]
         [StringLength(16)]
         [MaxLength(16, ErrorMessage = "Max Length 16")]
-        [MinLength(8, ErrorMessage = "Min Length 8")]
+        [MinLength(5, ErrorMessage = "Min Length 5")]
         public string Account { get; set; }
 
         [DisplayName("Actual Name")]
@@ -30,7 +30,7 @@ namespace SP_Share.Models
         public string Name { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "{0} length at least {2} characters", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} length at least {2} characters", MinimumLength = 4)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
