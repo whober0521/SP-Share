@@ -89,3 +89,7 @@ C:\Users\whobe\Desktop\SPShare\SP Share\obj\Debug\SP Share.csproj.CoreCompileInp
 C:\Users\whobe\Desktop\SPShare\SP Share\obj\Debug\SP Share.csproj.CopyComplete
 C:\Users\whobe\Desktop\SPShare\SP Share\obj\Debug\SP Share.dll
 C:\Users\whobe\Desktop\SPShare\SP Share\obj\Debug\SP Share.pdb
+C:\Users\whobe\Desktop\SPShare\SP Share\bin\EntityFramework.dll
+C:\Users\whobe\Desktop\SPShare\SP Share\bin\EntityFramework.SqlServer.dll
+C:\Users\whobe\Desktop\SPShare\SP Share\bin\EntityFramework.xml
+C:\Users\whobe\Desktop\SPShare\SP Share\bin\EntityFramework.SqlServer.xml
