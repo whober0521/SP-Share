@@ -1,4 +1,4 @@
-﻿@if (Session["IsAdmin"] != null)
+﻿@if (Session["UserName"] != null)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {

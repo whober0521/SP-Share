@@ -28,11 +28,6 @@ namespace SP_Share.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LoginUser(User model, string returnUrl)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
             User user = userSrv.Login(model.Account, model.Password);
 
             if (user != null)
@@ -74,9 +69,6 @@ namespace SP_Share.Controllers
         {
             if (ModelState.IsValid && userSrv.Insert(model))
             {
-                Session["IsAdmin"] = false;
-                Session["UserName"] = model.Name;
-
                 return RedirectToAction("Index", "Home");
             }
 

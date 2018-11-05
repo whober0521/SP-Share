@@ -9,6 +9,7 @@ namespace SP_Share.Models
     {
         public DbSet<User> User { get; set; }
         public DbSet<Group> Group { get; set; }
+        public DbSet<Item> Item { get; set; }
 
         public SPContext()
             : base("name=DefaultConnection")
@@ -48,6 +49,7 @@ namespace SP_Share.Models
         public int Group { get; set; }
 
         public bool IsAdmin { get; set; }
+        public bool IsActive { get; set; }
     }
 
     public class Group
@@ -58,5 +60,16 @@ namespace SP_Share.Models
 
         [StringLength(10)]
         public string Name { get; set; }
+
+        public bool IsActive { get; set; }
+    }
+
+    public class Item
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Idx { get; set; }
+
+        public byte[] Content { get; set; }
     }
 }
