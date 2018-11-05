@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Data.Entity;
+using System;
 
 namespace SP_Share.Models
 {
@@ -70,6 +71,28 @@ namespace SP_Share.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Idx { get; set; }
 
+        [DisplayName("Item Name")]
+        [StringLength(68)]
+        [MaxLength(68, ErrorMessage = "Max Length 68")]
+        public string Name { get; set; }
+
+        [DisplayName("Item Descriptor")]
+        [StringLength(500)]
+        [MaxLength(500, ErrorMessage = "Max Length 500")]
+        public string Descriptor { get; set; }
+
         public byte[] Content { get; set; }
+
+        public int Group { get; set; }
+
+        [DisplayName("Creator's Name")]
+        [StringLength(16)]
+        public string Creator { get; set; }
+
+        [DisplayName("Create Time")]
+        public DateTime CreateTime { get; set; }
+
+        [DisplayName("Access Time")]
+        public DateTime AccessTime { get; set; }
     }
 }

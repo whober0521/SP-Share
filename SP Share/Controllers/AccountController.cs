@@ -34,6 +34,7 @@ namespace SP_Share.Controllers
             {
                 Session["IsAdmin"] = user.IsAdmin;
                 Session["UserName"] = user.Name;
+                Session["UserGroup"] = user.Group;
 
                 return RedirectToLocal(returnUrl);
             }
@@ -50,6 +51,7 @@ namespace SP_Share.Controllers
         {
             Session["IsAdmin"] = null;
             Session["UserName"] = null;
+            Session["UserGroup"] = null;
 
             return RedirectToAction("Index", "Home");
         }
