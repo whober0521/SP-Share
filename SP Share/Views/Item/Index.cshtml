@@ -32,32 +32,32 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descriptor)
-        </td>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.Content)*@
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Creator)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccessTime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Idx }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Idx }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Idx })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descriptor)
+            </td>
+            <td>
+                @Html.ActionLink("Get", "Download", new { idx = item.Idx })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Creator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessTime)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Idx }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Idx }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Idx })
+            </td>
+        </tr>
+    }
 </table>

@@ -40,5 +40,12 @@ namespace SP_Share.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public FileResult Download(int? idx)
+        {
+            Item item = itemSrv.GetItem((int)idx);
+
+            return File(item.Content, System.Net.Mime.MediaTypeNames.Application.Octet, item.Name);
+        }
     }
 }

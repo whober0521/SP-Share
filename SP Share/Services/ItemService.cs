@@ -18,6 +18,11 @@ namespace SP_Share.Services
             return db.Item.Where(x => x.Group == group).ToArray();
         }
 
+        public Item GetItem(int idx)
+        {
+            return db.Item.FirstOrDefault();
+        }
+
         public bool Insert(Item item, Stream content, int group, string creator)
         {
             bool result = false;
