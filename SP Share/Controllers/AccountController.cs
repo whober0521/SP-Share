@@ -4,7 +4,6 @@ using System.Web.Mvc;
 
 namespace SP_Share.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         UserService userSrv;
@@ -27,17 +26,37 @@ namespace SP_Share.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult  LoginUser(User model, string returnUrl)
+        public ActionResult LoginUser(User model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            if (userSrv.Login(model.Account, model.Password))
+            User user = userSrv.Login(model.Account, model.Password);
+
+            if (user != null)
+            {
+                Session["IsAdmin"] = user.IsAdmin;
+                Session["UserName"] = user.Name;
+
                 return RedirectToLocal(returnUrl);
+            }
             else
+            {
                 return RedirectToAction("Login");
+            }
+        }
+
+        // POST: /Account/LogOff
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            Session["IsAdmin"] = null;
+            Session["UserName"] = null;
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: /Account/Register
@@ -288,16 +307,6 @@ namespace SP_Share.Controllers
 
         //    ViewBag.ReturnUrl = returnUrl;
         //    return View(model);
-        //}
-
-        ////
-        //// POST: /Account/LogOff
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult LogOff()
-        //{
-        //    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-        //    return RedirectToAction("Index", "Home");
         //}
 
         ////

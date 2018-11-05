@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using SP_Share.Models;
+using System.Linq;
 
 namespace SP_Share.Services
 {
@@ -9,9 +10,9 @@ namespace SP_Share.Services
 
         }
 
-        public bool Login(string account, string password)
+        public User Login(string account, string password)
         {
-            return db.User.FirstOrDefault(x => x.Account == account && x.Password == password) != null;
+            return db.User.FirstOrDefault(x => x.Account == account && x.Password == password);
         }
     }
 }
