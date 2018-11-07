@@ -18,19 +18,38 @@ namespace SP_Share.Services
             Item[] result;
 
             if (isadmin == "True")
-                result = db.Item.ToArray();
+                result = db.Item.OrderBy(x => x.Group).ToArray();
             else
-                result = db.Item.Where(x => x.Creator == account).ToArray();
+                result = db.Item.Where(x => x.Creator == account).OrderBy(x => x.Group).ToArray();
 
             return result;
         }
 
-        public Item GetItem(int idx)
+        public Item GetItem(int? idx)
         {
-            return db.Item.FirstOrDefault();
+            Item item = new Item();
+
+            try
+            {
+                item = db.Item.FirstOrDefault(x => x.Idx == idx);
+
+                if (item != null)
+                {
+                    item.AccessTime = DateTime.Now;
+
+                    db.Entry(item).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return item;
         }
 
-        public bool Insert(Item item, Stream content, int group, string creator)
+        public bool Save(Item item, Stream content, string creator)
         {
             bool result = false;
 
@@ -42,12 +61,20 @@ namespace SP_Share.Services
                     item.Content = ms.GetBuffer();
                 }
 
-                item.Group = group;
                 item.Creator = creator;
-                item.CreateTime = DateTime.Now;
                 item.AccessTime = DateTime.Now;
 
-                db.Entry(item).State = EntityState.Added;
+                if (item.Idx == 0)
+                {
+                    item.CreateTime = DateTime.Now;
+
+                    db.Entry(item).State = EntityState.Added;
+                }
+                else
+                {
+                    db.Entry(item).State = EntityState.Modified;
+                }
+
                 db.SaveChanges();
 
                 result = true;
@@ -60,7 +87,7 @@ namespace SP_Share.Services
             return result;
         }
 
-        public bool Delete(int idx)
+        public bool Delete(int? idx)
         {
             bool result = false;
 

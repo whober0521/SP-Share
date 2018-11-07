@@ -7,9 +7,12 @@
 
 <h2>Put</h2>
 
-
-@using (Html.BeginForm("Insert", "Item", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Save", "Item", FormMethod.Post, new { id = "formcontent", enctype = "multipart/form-data" }))
 {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Idx)
+    @Html.HiddenFor(x => x.CreateTime)
+
     <div class="form-horizontal">
         <h4>Item</h4>
         <hr />
@@ -33,8 +36,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="contentfile" class="validate[required] form-control">
-                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                <input type="file" id="contentfile" name="contentfile" class="form-control input-validation-error" data-val="true" data-val-required="Please upload the file">
+                @Html.ValidationMessage("contentfile", "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -48,7 +51,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                @if (Model.Idx == 0)
+                {
+                    <input type="submit" value="Create" class="btn btn-default" />
+                }
+                else
+                {
+                    <input type="submit" value="Update" class="btn btn-default" />
+                }
             </div>
         </div>
     </div>

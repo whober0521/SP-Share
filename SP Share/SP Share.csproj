@@ -191,7 +191,7 @@
     </Content>
     <Content Include="libman.json" />
     <Content Include="Views\Item\Index.cshtml" />
-    <Content Include="Views\Item\Put.cshtml" />
+    <Content Include="Views\Item\Item.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

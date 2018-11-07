@@ -101,5 +101,8 @@ namespace SP_Share.Models
 
         [DisplayName("Access Time")]
         public DateTime AccessTime { get; set; }
+
+        [ForeignKey("Group")]
+        public virtual Group GroupDetail { get; set; }
     }
 }

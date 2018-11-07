@@ -27,30 +27,46 @@ namespace SP_Share.Controllers
             if (Session["UserAccount"] == null)
                 return RedirectToAction("Index", "Default");
 
-            return View();
+            return View("Item", new Item());
+        }
+
+        public ActionResult Edit(int? idx)
+        {
+            if (Session["UserAccount"] == null)
+                return RedirectToAction("Index", "Default");
+
+            if (idx == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Item", itemSrv.GetItem(idx));
+            }
         }
 
         [ValidateInput(false)]
-        public ActionResult Insert(Item item, HttpPostedFileBase contentfile)
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(Item item, HttpPostedFileBase contentfile)
         {
-            if (Session["UserGroup"] == null)
-                return RedirectToAction("Index", "Home");
+            if (Session["UserAccount"] == null)
+                return RedirectToAction("Index", "Default");
 
-            itemSrv.Insert(item, contentfile.InputStream, int.Parse(Session["UserGroup"].ToString()), Session["UserName"].ToString());
+            itemSrv.Save(item, contentfile.InputStream, Session["UserName"].ToString());
 
             return RedirectToAction("Index");
         }
 
         public FileResult Download(int? idx)
         {
-            Item item = itemSrv.GetItem((int)idx);
+            Item item = itemSrv.GetItem(idx);
 
             return File(item.Content, System.Net.Mime.MediaTypeNames.Application.Octet, item.Name);
         }
 
         public ActionResult Delete(int? idx)
         {
-            itemSrv.Delete((int)idx);
+            itemSrv.Delete(idx);
 
             return RedirectToAction("Index");
         }
