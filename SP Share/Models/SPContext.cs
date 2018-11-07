@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
 using System;
@@ -11,7 +10,6 @@ namespace SP_Share.Models
     {
         public DbSet<User> User { get; set; }
         public DbSet<Group> Group { get; set; }
-        public DbSet<UserGroup> UserGroup { get; set; }
         public DbSet<Item> Item { get; set; }
 
         public SPContext()
@@ -41,6 +39,8 @@ namespace SP_Share.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        public string Salt { get; set; }
+
         [NotMapped]
         [Display(Name = "Group")]
         public int? Group { get; set; }
@@ -57,19 +57,11 @@ namespace SP_Share.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Idx { get; set; }
 
+        [Required]
         [StringLength(10)]
         public string Name { get; set; }
 
         public bool IsActive { get; set; }
-    }
-
-    public class UserGroup
-    {
-        [Key, Column(Order = 0)]
-        public string User { get; set; }
-
-        [Key, Column(Order = 1)]
-        public int Group { get; set; }
     }
 
     public class Item

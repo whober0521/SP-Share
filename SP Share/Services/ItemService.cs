@@ -61,11 +61,11 @@ namespace SP_Share.Services
                     item.Content = ms.GetBuffer();
                 }
 
-                item.Creator = creator;
                 item.AccessTime = DateTime.Now;
 
                 if (item.Idx == 0)
                 {
+                    item.Creator = creator;
                     item.CreateTime = DateTime.Now;
 
                     db.Entry(item).State = EntityState.Added;

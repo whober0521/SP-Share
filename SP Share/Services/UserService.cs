@@ -1,7 +1,8 @@
-﻿using SP_Share.Models;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System;
+using SP_Share.Helpers;
+using SP_Share.Models;
 
 namespace SP_Share.Services
 {
@@ -19,7 +20,20 @@ namespace SP_Share.Services
 
         public User Login(string account, string password)
         {
-            return db.User.FirstOrDefault(x => x.Account == account && x.Password == password && x.IsActive);
+            User user = db.User.FirstOrDefault(x => x.Account == account && x.IsActive);
+
+            string pwd = "";
+
+            if (user != null)
+            {
+                string salt = user.Salt;
+
+                pwd = SecurityHelper.HashPassword(password, ref salt);
+
+                if (pwd != user.Password) user = null;
+            }
+
+            return user;
         }
 
         public bool Insert(User user)
@@ -28,6 +42,11 @@ namespace SP_Share.Services
 
             try
             {
+                string salt = "";
+
+                user.Password = SecurityHelper.HashPassword(user.Password, ref salt);
+                user.Salt = salt;
+
                 db.Entry(user).State = EntityState.Added;
                 db.SaveChanges();
 

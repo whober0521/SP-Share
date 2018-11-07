@@ -36,13 +36,9 @@ namespace SP_Share.Controllers
                 return RedirectToAction("Index", "Default");
 
             if (idx == null)
-            {
                 return RedirectToAction("Index");
-            }
             else
-            {
                 return View("Item", itemSrv.GetItem(idx));
-            }
         }
 
         [ValidateInput(false)]

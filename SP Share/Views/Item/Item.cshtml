@@ -11,6 +11,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.Idx)
+    @Html.HiddenFor(x => x.Creator)
     @Html.HiddenFor(x => x.CreateTime)
 
     <div class="form-horizontal">
