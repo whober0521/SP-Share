@@ -12,14 +12,14 @@ namespace SP_Share.Services
 
         }
 
+        public User[] GetUserList()
+        {
+            return db.User.ToArray();
+        }
+
         public User Login(string account, string password)
         {
             return db.User.FirstOrDefault(x => x.Account == account && x.Password == password && x.IsActive);
-        }
-
-        public Group[] GetGroupList()
-        {
-            return db.Group.Where(x => x.IsActive).ToArray();
         }
 
         public bool Insert(User user)

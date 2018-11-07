@@ -111,3 +111,5 @@
 /SP Share/Web.Debug.config
 /SP Share/Web.Release.config
 /SP Share/Web.config
+/SP Share/obj/Debug/SP Share.csproj.GenerateResource.cache
+/SP Share/obj/Debug/SP_Share.Migrations.init.resources

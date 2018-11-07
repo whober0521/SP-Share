@@ -17,7 +17,7 @@ namespace SP_Share.Services
         {
             Item[] result;
 
-            if (isadmin == "true")
+            if (isadmin == "True")
                 result = db.Item.ToArray();
             else
                 result = db.Item.Where(x => x.Creator == account).ToArray();

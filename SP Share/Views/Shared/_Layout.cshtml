@@ -19,16 +19,21 @@
                 @Html.ActionLink("SP Share", "Index", "Default", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (Session["UserName"] != null)
-                    {
-                        <li>@Html.ActionLink("Items", "Index", "Item")</li>
-                    }
-                </ul>
-
-                @if (Session["UserName"] != null)
+                @if (Session["UserAccount"] != null)
                 {
-                    using (Html.BeginForm("LogOff", "Default", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    if (Session["IsAdmin"].ToString() == "True")
+                    {
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("User List", "Index", "User")</li>
+                        </ul>
+                    }
+
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Create Group", "Group", "Group")</li>
+                        <li>@Html.ActionLink("Items", "Index", "Item")</li>
+                    </ul>
+
+                    using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                     {
                         @Html.AntiForgeryToken()
 
@@ -41,8 +46,8 @@
                 else
                 {
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("Register", "Register", "Default", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                        <li>@Html.ActionLink("Login", "Login", "Default", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        <li>@Html.ActionLink("Register", "Register", "User", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li>@Html.ActionLink("Login", "Login", "User", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
                     </ul>
                 }
             </div>
