@@ -40,5 +40,31 @@ namespace SP_Share.Services
 
             return result;
         }
+
+        public bool Update(string account)
+        {
+            bool result = false;
+
+            try
+            {
+                User user = db.User.FirstOrDefault(x => x.Account == account);
+
+                if (user != null)
+                {
+                    user.IsActive = true;
+
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
+        }
     }
 }

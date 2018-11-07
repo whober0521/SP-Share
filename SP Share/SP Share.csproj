@@ -167,10 +167,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelper.cs" />
-    <Compile Include="Migrations\201811071035108_init.cs" />
-    <Compile Include="Migrations\201811071035108_init.Designer.cs">
-      <DependentUpon>201811071035108_init.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\SPContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -239,11 +235,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811071035108_init.resx">
-      <DependentUpon>201811071035108_init.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

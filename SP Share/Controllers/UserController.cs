@@ -15,10 +15,20 @@ namespace SP_Share.Controllers
 
         public ActionResult Index()
         {
-            if (Session["UserAccount"] == null)
+            if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
                 return RedirectToAction("Index", "Default");
 
             return View(userSrv.GetUserList());
+        }
+
+        public ActionResult Active(string account)
+        {
+            if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
+                return RedirectToAction("Index", "Default");
+
+            userSrv.Update(account);
+
+            return RedirectToAction("Index");
         }
 
         // GET: /Account/Register
