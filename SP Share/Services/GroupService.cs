@@ -11,9 +11,12 @@ namespace SP_Share.Services
         {
         }
 
-        public Group[] GetGroupList()
+        public Group[] GetGroupList(bool isAll)
         {
-            return db.Group.Where(x => x.IsActive).ToArray();
+            if (isAll)
+                return db.Group.ToArray();
+            else
+                return db.Group.Where(x => x.IsActive).ToArray();
         }
 
         public bool Insert(string name)

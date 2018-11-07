@@ -12,6 +12,14 @@ namespace SP_Share.Controllers
             groupSrv = new GroupService();
         }
 
+        public ActionResult Index()
+        {
+            if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
+                return RedirectToAction("Index", "Default");
+            else
+                return View(groupSrv.GetGroupList(true));
+        }
+
         public ActionResult Group()
         {
             if (Session["UserAccount"] == null)
@@ -31,14 +39,6 @@ namespace SP_Share.Controllers
             return RedirectToAction("Group");
         }
 
-
-        //public ActionResult Index()
-        //{
-        //    if (Session["UserAccount"] == null)
-        //        return RedirectToAction("Index", "Default");
-        //    else
-        //        return View(itemSrv.GetItemList(Session["UserAccount"].ToString(), Session["IsAdmin"].ToString()));
-        //}
 
 
 

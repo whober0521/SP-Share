@@ -10,7 +10,7 @@ namespace SP_Share.Helpers
         public static List<SelectListItem> GroupDropDownList(this HtmlHelper helper)
         {
             List<SelectListItem> result = new List<SelectListItem>() { new SelectListItem() { Text = "Select", Value = "" } };
-            Group[] groupList = new GroupService().GetGroupList();
+            Group[] groupList = new GroupService().GetGroupList(false);
 
             foreach (Group group in groupList)
                 result.Add(new SelectListItem() { Value = group.Idx.ToString(), Text = group.Name });

@@ -95,7 +95,7 @@ namespace SP_Share.Controllers
 
             Session.Clear();
 
-            return RedirectToAction("Index", "Default");
+            return RedirectToAction("Login");
         }
 
         private ActionResult RedirectToLocal(string returnUrl)
