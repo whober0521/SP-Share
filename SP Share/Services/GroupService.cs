@@ -19,6 +19,11 @@ namespace SP_Share.Services
                 return db.Group.Where(x => x.IsActive).ToArray();
         }
 
+        public Group GetGroup(int idx)
+        {
+            return db.Group.FirstOrDefault(x => x.Idx == idx);
+        }
+
         public bool Insert(string name)
         {
             bool result = false;
@@ -42,7 +47,7 @@ namespace SP_Share.Services
             return result;
         }
 
-        public bool Update(int? idx)
+        public bool Active(int? idx)
         {
             bool result = false;
 
@@ -53,6 +58,32 @@ namespace SP_Share.Services
                 if (group != null)
                 {
                     group.IsActive = true;
+
+                    db.Entry(group).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        public bool Limit(int? idx, int? limit)
+        {
+            bool result = false;
+
+            try
+            {
+                Group group = db.Group.FirstOrDefault(x => x.Idx == idx);
+
+                if (group != null && limit != null)
+                {
+                    group.Limit = (int)limit;
 
                     db.Entry(group).State = EntityState.Modified;
                     db.SaveChanges();

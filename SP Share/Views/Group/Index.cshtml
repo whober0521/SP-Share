@@ -9,20 +9,42 @@
 <table class="table">
     <tr>
         <th>@Html.DisplayNameFor(model => model.Name)</th>
+        <th>@Html.DisplayNameFor(model => model.Limit)</th>
         <th>@Html.DisplayNameFor(model => model.IsActive)</th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>@Html.DisplayFor(modelItem => item.Name)</td>
-        <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
-        <td>
-            @if (!item.IsActive)
-            {
-                @Html.ActionLink("Active", "Active", new { idx = item.Idx })
-            }
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Limit) MB</td>
+            <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
+            <td>
+                @if (!item.IsActive)
+                {
+                    @Html.ActionLink("Active", "Active", new { idx = item.Idx })
+                    <a>|</a>
+                }
+
+                <a href="#" onclick="SetLimit('@item.Idx')">Set Space Consumption</a>
+            </td>
+        </tr>
+    }
 </table>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="limitDialog"></div>
+
+<script>
+    function SetLimit(Idx) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("_Limit")',
+            data: { idx: Idx },
+            success: function (response) {
+                $("#limitDialog").html(response);
+                $('#limitDialog').modal('show');
+            }
+        });
+    };
+</script>

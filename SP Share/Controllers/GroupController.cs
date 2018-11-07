@@ -44,9 +44,24 @@ namespace SP_Share.Controllers
             if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
                 return RedirectToAction("Index", "Default");
 
-            if (idx != null) groupSrv.Update(idx);
+            if (idx != null) groupSrv.Active(idx);
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Limit(int? Idx, int? Limit)
+        {
+            if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
+                return RedirectToAction("Index", "Default");
+
+            groupSrv.Limit(Idx, Limit);
+
+            return RedirectToAction("Index");
+        }
+
+        public PartialViewResult _Limit(string idx)
+        {
+            return PartialView(groupSrv.GetGroup(int.Parse(idx)));
         }
     }
 }

@@ -61,6 +61,8 @@ namespace SP_Share.Models
         [StringLength(10)]
         public string Name { get; set; }
 
+        public int Limit { get; set; }
+
         public bool IsActive { get; set; }
     }
 
@@ -81,6 +83,7 @@ namespace SP_Share.Models
         public string Description { get; set; }
 
         public byte[] Content { get; set; }
+        public int Length { get; set; }
 
         public int Group { get; set; }
 

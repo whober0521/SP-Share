@@ -42,3 +42,11 @@
         </tr>
     }
 </table>
+
+@if (TempData["ErrMsg"] != null)
+{
+    <script type="text/javascript">
+        var message = @Html.Raw(Json.Encode(TempData["ErrMsg"]));
+        alert(message);
+    </script>
+}

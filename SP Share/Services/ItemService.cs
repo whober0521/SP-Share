@@ -8,6 +8,8 @@ namespace SP_Share.Services
 {
     public class ItemService : DefaultService
     {
+        const int KBtye = 1024;
+
         public ItemService()
         {
 
@@ -49,16 +51,24 @@ namespace SP_Share.Services
             return item;
         }
 
-        public bool Save(Item item, Stream content, string creator)
+        public string Save(Item item, Stream content, string creator)
         {
-            bool result = false;
+            string result = "";
 
             try
             {
+                int sum = 0;
+
+                if (db.Item.Where(x => x.Group == item.Group).Count() != 0)
+                    sum = db.Item.Where(x => x.Group == item.Group && x.Idx != item.Idx).Sum(x => x.Length);
+
+                if (sum + content.Length > db.Group.FirstOrDefault(x => x.Idx == item.Group).Limit * 1024 * 1024) return "Not enough group space";
+
                 using (MemoryStream ms = new MemoryStream())
                 {
                     content.CopyTo(ms);
                     item.Content = ms.GetBuffer();
+                    item.Length = item.Content.Length;
                 }
 
                 item.AccessTime = DateTime.Now;
@@ -77,11 +87,11 @@ namespace SP_Share.Services
 
                 db.SaveChanges();
 
-                result = true;
+                result = "";
             }
             catch (Exception)
             {
-                result = false;
+                result = "";
             }
 
             return result;
