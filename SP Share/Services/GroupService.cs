@@ -41,5 +41,31 @@ namespace SP_Share.Services
 
             return result;
         }
+
+        public bool Update(int? idx)
+        {
+            bool result = false;
+
+            try
+            {
+                Group group = db.Group.FirstOrDefault(x => x.Idx == idx);
+
+                if (group != null)
+                {
+                    group.IsActive = true;
+
+                    db.Entry(group).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
+        }
     }
 }

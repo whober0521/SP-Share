@@ -39,22 +39,14 @@ namespace SP_Share.Controllers
             return RedirectToAction("Group");
         }
 
+        public ActionResult Active(int? idx)
+        {
+            if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
+                return RedirectToAction("Index", "Default");
 
+            if (idx != null) groupSrv.Update(idx);
 
-
-
-        //public FileResult Download(int? idx)
-        //{
-        //    Item item = itemSrv.GetItem((int)idx);
-
-        //    return File(item.Content, System.Net.Mime.MediaTypeNames.Application.Octet, item.Name);
-        //}
-
-        //public ActionResult Delete(int? idx)
-        //{
-        //    itemSrv.Delete((int)idx);
-
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
     }
 }
