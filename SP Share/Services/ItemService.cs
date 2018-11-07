@@ -13,9 +13,16 @@ namespace SP_Share.Services
 
         }
 
-        public Item[] GetItemList(int group)
+        public Item[] GetItemList(string account, string isadmin)
         {
-            return db.Item.Where(x => x.Group == group).ToArray();
+            Item[] result;
+
+            if (isadmin == "true")
+                result = db.Item.ToArray();
+            else
+                result = db.Item.Where(x => x.Creator == account).ToArray();
+
+            return result;
         }
 
         public Item GetItem(int idx)

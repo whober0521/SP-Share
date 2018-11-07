@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
 using System;
@@ -10,6 +11,7 @@ namespace SP_Share.Models
     {
         public DbSet<User> User { get; set; }
         public DbSet<Group> Group { get; set; }
+        public DbSet<UserGroup> UserGroup { get; set; }
         public DbSet<Item> Item { get; set; }
 
         public SPContext()
@@ -66,6 +68,15 @@ namespace SP_Share.Models
         public bool IsActive { get; set; }
     }
 
+    public class UserGroup
+    {
+        [Key, Column(Order = 0)]
+        public string User { get; set; }
+
+        [Key, Column(Order = 1)]
+        public int Group { get; set; }
+    }
+
     public class Item
     {
         [Key]
@@ -77,10 +88,10 @@ namespace SP_Share.Models
         [MaxLength(68, ErrorMessage = "Max Length 68")]
         public string Name { get; set; }
 
-        [DisplayName("Item Descriptor")]
+        [DisplayName("Item Description")]
         [StringLength(500)]
         [MaxLength(500, ErrorMessage = "Max Length 500")]
-        public string Descriptor { get; set; }
+        public string Description { get; set; }
 
         public byte[] Content { get; set; }
 

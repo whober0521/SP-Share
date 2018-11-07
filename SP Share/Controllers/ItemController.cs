@@ -16,16 +16,16 @@ namespace SP_Share.Controllers
 
         public ActionResult Index()
         {
-            if (Session["UserGroup"] == null)
-                return RedirectToAction("Index", "Home");
-
-            return View(itemSrv.GetItemList(int.Parse(Session["UserGroup"].ToString())));
+            if (Session["UserAccount"] == null)
+                return RedirectToAction("Index", "Default");
+            else
+                return View(itemSrv.GetItemList(Session["UserAccount"].ToString(), Session["IsAdmin"].ToString()));
         }
 
         public ActionResult Put()
         {
-            if (Session["UserGroup"] == null)
-                return RedirectToAction("Index", "Home");
+            if (Session["UserAccount"] == null)
+                return RedirectToAction("Index", "Default");
 
             return View();
         }

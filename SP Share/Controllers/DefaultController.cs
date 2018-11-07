@@ -15,7 +15,10 @@ namespace SP_Share.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if (Session["UserAccount"] == null)
+                return View();
+            else
+                return RedirectToAction("Index", "Item");
         }
 
         // GET: /Account/Register
@@ -62,8 +65,7 @@ namespace SP_Share.Controllers
                 Session["IsAdmin"] = user.IsAdmin;
                 Session["UserAccount"] = user.Name;
                 Session["UserName"] = user.Name;
-                Session["UserGroup"] = user.Group;
-
+   
                 return RedirectToLocal(returnUrl);
             }
             else
@@ -80,7 +82,6 @@ namespace SP_Share.Controllers
             Session["IsAdmin"] = null;
             Session["UserAccount"] = null;
             Session["UserName"] = null;
-            Session["UserGroup"] = null;
 
             Session.Clear();
 
