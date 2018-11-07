@@ -25,7 +25,7 @@ namespace SP_Share.Models
         [DisplayName("Login Name")]
         [StringLength(16)]
         [MaxLength(16, ErrorMessage = "Max Length 16")]
-        [MinLength(5, ErrorMessage = "Min Length 5")]
+        [MinLength(6, ErrorMessage = "Min Length 6")]
         public string Account { get; set; }
 
         [DisplayName("Actual Name")]
@@ -34,7 +34,7 @@ namespace SP_Share.Models
         public string Name { get; set; }
 
         [Required]
-        [StringLength(200, ErrorMessage = "{0} length at least {2} characters", MinimumLength = 4)]
+        [StringLength(200, ErrorMessage = "{0} length at least {2} characters", MinimumLength = 8)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -45,11 +45,12 @@ namespace SP_Share.Models
         [Compare("Password", ErrorMessage = "Password not matched")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
         [Display(Name = "Group")]
-        public int Group { get; set; }
+        public int? Group { get; set; }
 
+        [Display(Name = "Is Administrator?")]
         public bool IsAdmin { get; set; }
+
         public bool IsActive { get; set; }
     }
 

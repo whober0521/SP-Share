@@ -47,5 +47,12 @@ namespace SP_Share.Controllers
 
             return File(item.Content, System.Net.Mime.MediaTypeNames.Application.Octet, item.Name);
         }
+
+        public ActionResult Delete(int? idx)
+        {
+            itemSrv.Delete((int)idx);
+
+            return RedirectToAction("Index");
+        }
     }
 }

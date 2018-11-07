@@ -47,7 +47,31 @@ namespace SP_Share.Services
             }
             catch (Exception)
             {
+                result = false;
+            }
 
+            return result;
+        }
+
+        public bool Delete(int idx)
+        {
+            bool result = false;
+
+            try
+            {
+                Item item = db.Item.FirstOrDefault(x => x.Idx == idx);
+
+                if (item != null)
+                {
+                    db.Entry(item).State = EntityState.Deleted;
+                    db.SaveChanges();
+                }
+
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
             }
 
             return result;

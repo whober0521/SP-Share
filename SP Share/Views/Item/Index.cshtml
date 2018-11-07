@@ -54,9 +54,12 @@
                 @Html.DisplayFor(modelItem => item.AccessTime)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Idx }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Idx }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Idx })
+                @if (Session["UserName"].ToString() == item.Creator || Session["IsAdmin"].ToString() == "true")
+                {
+                    @Html.ActionLink("Edit", "Edit", new { idx = item.Idx }) 
+                    <a>|</a>
+                    @Html.ActionLink("Remove", "Delete", new { idx = item.Idx })
+                }
             </td>
         </tr>
     }
