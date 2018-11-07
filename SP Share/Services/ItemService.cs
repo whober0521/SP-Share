@@ -27,6 +27,11 @@ namespace SP_Share.Services
             return result;
         }
 
+        public ItemLimit[] GetItemLimitList()
+        {
+            return db.ItemLimit.ToArray();
+        }
+
         public Item GetItem(int? idx)
         {
             Item item = new Item();
@@ -49,6 +54,15 @@ namespace SP_Share.Services
             }
 
             return item;
+        }
+
+        public ItemLimit GetItemLimit(int? idx)
+        {
+            ItemLimit result = db.ItemLimit.FirstOrDefault(x => x.Idx == idx);
+
+            if (result == null) result = new ItemLimit();
+
+            return result;
         }
 
         public string Save(Item item, Stream content, string creator)
@@ -98,6 +112,29 @@ namespace SP_Share.Services
             return result;
         }
 
+        public bool SaveLimit(ItemLimit limit)
+        {
+            bool result = false;
+
+            try
+            {
+                if (limit.Idx == 0)
+                    db.Entry(limit).State = EntityState.Added;
+                else
+                    db.Entry(limit).State = EntityState.Modified;
+
+                db.SaveChanges();
+
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
         public bool Delete(int? idx)
         {
             bool result = false;
@@ -105,6 +142,30 @@ namespace SP_Share.Services
             try
             {
                 Item item = db.Item.FirstOrDefault(x => x.Idx == idx);
+
+                if (item != null)
+                {
+                    db.Entry(item).State = EntityState.Deleted;
+                    db.SaveChanges();
+                }
+
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        public bool DeleteLimit(int? idx)
+        {
+            bool result = false;
+
+            try
+            {
+                ItemLimit item = db.ItemLimit.FirstOrDefault(x => x.Idx == idx);
 
                 if (item != null)
                 {

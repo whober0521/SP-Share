@@ -253,3 +253,7 @@
 /SP Share/obj/Release/TransformWebConfig/original/Web.config
 /SP Share/obj/Release/TransformWebConfig/transformed/Web.config
 /SP Share/obj/Release/_WPPLastBuildInfo.txt
+/SP Share/obj/Release/Package/PackageTmp/Views/Group/_Limit.cshtml
+/SP Share/obj/Release/Package/PackageTmp/Views/User/_Limit.cshtml
+/SP Share/obj/Release/SP Share.csproj.GenerateResource.cache
+/SP Share/obj/Release/SP_Share.Migrations.init.resources

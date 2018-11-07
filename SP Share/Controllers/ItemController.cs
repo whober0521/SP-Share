@@ -66,5 +66,44 @@ namespace SP_Share.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult ItemLimitList()
+        {
+            return View(itemSrv.GetItemLimitList());
+        }
+
+        public ActionResult InsertLimit()
+        {
+            if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
+                return RedirectToAction("Index", "Default");
+
+            return View("ItemLimit", new ItemLimit());
+        }
+
+        public ActionResult ItemLimit(int? idx)
+        {
+            if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
+                return RedirectToAction("Index", "Default");
+
+            return View(itemSrv.GetItemLimit(idx));
+        }
+
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveLimit(ItemLimit _limit)
+        {
+            if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
+                return RedirectToAction("Index", "Default");
+
+            itemSrv.SaveLimit(_limit);
+
+            return RedirectToAction("ItemLimitList");
+        }
+
+        public ActionResult DeleteLimit(int? idx)
+        {
+            itemSrv.DeleteLimit(idx);
+
+            return RedirectToAction("ItemLimitList");
+        }
     }
 }

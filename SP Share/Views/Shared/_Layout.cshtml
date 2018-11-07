@@ -24,6 +24,7 @@
                     if (Session["IsAdmin"].ToString() == "True")
                     {
                         <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Item Limit", "ItemLimitList", "Item")</li>
                             <li>@Html.ActionLink("User List", "Index", "User")</li>
                             <li>@Html.ActionLink("Group List", "Index", "Group")</li>
                         </ul>

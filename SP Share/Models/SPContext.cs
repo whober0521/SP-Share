@@ -11,6 +11,7 @@ namespace SP_Share.Models
         public DbSet<User> User { get; set; }
         public DbSet<Group> Group { get; set; }
         public DbSet<Item> Item { get; set; }
+        public DbSet<ItemLimit> ItemLimit { get; set; }
 
         public SPContext()
             : base("name=DefaultConnection")
@@ -60,12 +61,28 @@ namespace SP_Share.Models
         public int Idx { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(16)]
+        [MaxLength(16, ErrorMessage = "Max Length 16")]
         public string Name { get; set; }
 
         public int Limit { get; set; }
 
         public bool IsActive { get; set; }
+    }
+
+    public class ItemLimit
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Idx { get; set; }
+
+        [Required]
+        [DisplayName("Extension Name")]
+        [StringLength(16)]
+        [MaxLength(16, ErrorMessage = "Max Length 16")]
+        public string Name { get; set; }
+
+        public int Limit { get; set; }
     }
 
     public class Item
