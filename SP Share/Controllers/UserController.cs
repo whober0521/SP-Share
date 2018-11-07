@@ -26,7 +26,18 @@ namespace SP_Share.Controllers
             if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
                 return RedirectToAction("Index", "Default");
 
-            userSrv.Update(account);
+            userSrv.Active(account);
+
+            return RedirectToAction("Index");
+        }
+
+        [ValidateAntiForgeryToken]
+        public ActionResult Limit(string Account, int? Limit)
+        {
+            if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
+                return RedirectToAction("Index", "Default");
+
+            userSrv.Limit(Account, Limit);
 
             return RedirectToAction("Index");
         }
@@ -73,7 +84,7 @@ namespace SP_Share.Controllers
                 Session.Clear();
 
                 Session["IsAdmin"] = user.IsAdmin;
-                Session["UserAccount"] = user.Name;
+                Session["UserAccount"] = user.Account;
                 Session["UserName"] = user.Name;
 
                 return RedirectToLocal(returnUrl);
@@ -96,6 +107,11 @@ namespace SP_Share.Controllers
             Session.Clear();
 
             return RedirectToAction("Login");
+        }
+
+        public PartialViewResult _Limit(string account)
+        {
+            return PartialView(userSrv.GetUser(account));
         }
 
         private ActionResult RedirectToLocal(string returnUrl)

@@ -19,7 +19,7 @@ namespace SP_Share.Services
                 return db.Group.Where(x => x.IsActive).ToArray();
         }
 
-        public Group GetGroup(int idx)
+        public Group GetGroup(int? idx)
         {
             return db.Group.FirstOrDefault(x => x.Idx == idx);
         }

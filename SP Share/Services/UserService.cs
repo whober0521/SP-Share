@@ -18,6 +18,11 @@ namespace SP_Share.Services
             return db.User.ToArray();
         }
 
+        public User GetUser(string account)
+        {
+            return db.User.FirstOrDefault(x => x.Account == account);
+        }
+
         public User Login(string account, string password)
         {
             User user = db.User.FirstOrDefault(x => x.Account == account && x.IsActive);
@@ -60,7 +65,7 @@ namespace SP_Share.Services
             return result;
         }
 
-        public bool Update(string account)
+        public bool Active(string account)
         {
             bool result = false;
 
@@ -85,5 +90,32 @@ namespace SP_Share.Services
 
             return result;
         }
+
+        public bool Limit(string account, int? limit)
+        {
+            bool result = false;
+
+            try
+            {
+                User user = db.User.FirstOrDefault(x => x.Account == account);
+
+                if (user != null && limit != null)
+                {
+                    user.Limit = (int)limit;
+
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿@model SP_Share.Models.Group
+﻿@model SP_Share.Models.User
 
 <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -8,12 +8,12 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        @using (Html.BeginForm("Limit", "Group", FormMethod.Post))
+        @using (Html.BeginForm("Limit", "User", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
 
             <div class="modal-body">
-                @Html.HiddenFor(x => x.Idx)
+                @Html.HiddenFor(x => x.Account)
                 @Html.EditorFor(model => model.Limit, new { htmlAttributes = new { @class = "form-control" } })
             </div>
             <div class="modal-footer">

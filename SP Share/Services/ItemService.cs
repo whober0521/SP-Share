@@ -63,6 +63,7 @@ namespace SP_Share.Services
                     sum = db.Item.Where(x => x.Group == item.Group && x.Idx != item.Idx).Sum(x => x.Length);
 
                 if (sum + content.Length > db.Group.FirstOrDefault(x => x.Idx == item.Group).Limit * 1024 * 1024) return "Not enough group space";
+                if (sum + content.Length > db.User.FirstOrDefault(x => x.Account == creator).Limit * 1024 * 1024) return "Not enough user space";
 
                 using (MemoryStream ms = new MemoryStream())
                 {

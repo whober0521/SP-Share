@@ -49,6 +49,7 @@ namespace SP_Share.Controllers
             return RedirectToAction("Index");
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult Limit(int? Idx, int? Limit)
         {
             if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
@@ -59,9 +60,9 @@ namespace SP_Share.Controllers
             return RedirectToAction("Index");
         }
 
-        public PartialViewResult _Limit(string idx)
+        public PartialViewResult _Limit(int? idx)
         {
-            return PartialView(groupSrv.GetGroup(int.Parse(idx)));
+            return PartialView(groupSrv.GetGroup(idx));
         }
     }
 }

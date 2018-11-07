@@ -48,7 +48,7 @@ namespace SP_Share.Controllers
             if (Session["UserAccount"] == null)
                 return RedirectToAction("Index", "Default");
 
-            TempData["ErrMsg"] = itemSrv.Save(item, contentfile.InputStream, Session["UserName"].ToString());
+            TempData["ErrMsg"] = itemSrv.Save(item, contentfile.InputStream, Session["UserAccount"].ToString());
 
             return RedirectToAction("Index");
         }

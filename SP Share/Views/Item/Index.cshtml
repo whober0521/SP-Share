@@ -28,7 +28,7 @@
             <td>@Html.DisplayFor(modelItem => item.Name)</td>
             <td>@Html.DisplayFor(modelItem => item.Description)</td>
             <td>@Html.ActionLink("Get", "Download", new { idx = item.Idx })</td>
-            <td>@Html.DisplayFor(modelItem => item.Creator)</td>
+            <td>@Html.DisplayFor(modelItem => item.CreatorDetail.Name)</td>
             <td>@Html.DisplayFor(modelItem => item.CreateTime)</td>
             <td>@Html.DisplayFor(modelItem => item.AccessTime)</td>
             <td>
@@ -43,7 +43,7 @@
     }
 </table>
 
-@if (TempData["ErrMsg"] != null)
+@if (TempData["ErrMsg"] != null && !string.IsNullOrWhiteSpace(TempData["ErrMsg"].ToString()))
 {
     <script type="text/javascript">
         var message = @Html.Raw(Json.Encode(TempData["ErrMsg"]));

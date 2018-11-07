@@ -45,6 +45,8 @@ namespace SP_Share.Models
         [Display(Name = "Group")]
         public int? Group { get; set; }
 
+        public int Limit { get; set; }
+
         [Display(Name = "Is Administrator?")]
         public bool IsAdmin { get; set; }
 
@@ -99,5 +101,8 @@ namespace SP_Share.Models
 
         [ForeignKey("Group")]
         public virtual Group GroupDetail { get; set; }
+
+        [ForeignKey("Creator")]
+        public virtual User CreatorDetail { get; set; }
     }
 }
