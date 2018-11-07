@@ -1,14 +1,15 @@
-﻿using System.Web.Mvc;
+﻿using SP_Share.Services;
+using System.Web.Mvc;
 
 namespace SP_Share.Controllers
 {
     public class GroupController : Controller
     {
-        //ItemService itemSrv;
+        GroupService groupSrv;
 
         public GroupController()
         {
-            //itemSrv = new ItemService();
+            groupSrv = new GroupService();
         }
 
         public ActionResult Group()
@@ -18,6 +19,18 @@ namespace SP_Share.Controllers
 
             return View();
         }
+
+        [ValidateAntiForgeryToken]
+        public ActionResult Insert(string Name)
+        {
+            if (Session["UserAccount"] == null)
+                return RedirectToAction("Index", "Home");
+
+            groupSrv.Insert(Name);
+
+            return RedirectToAction("Group");
+        }
+
 
         //public ActionResult Index()
         //{
@@ -29,16 +42,6 @@ namespace SP_Share.Controllers
 
 
 
-        //[ValidateInput(false)]
-        //public ActionResult Insert(Item item, HttpPostedFileBase contentfile)
-        //{
-        //    if (Session["UserGroup"] == null)
-        //        return RedirectToAction("Index", "Home");
-
-        //    itemSrv.Insert(item, contentfile.InputStream, int.Parse(Session["UserGroup"].ToString()), Session["UserName"].ToString());
-
-        //    return RedirectToAction("Index");
-        //}
 
         //public FileResult Download(int? idx)
         //{
