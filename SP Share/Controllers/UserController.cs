@@ -52,6 +52,7 @@ namespace SP_Share.Controllers
         //POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Register(User model)
         {
