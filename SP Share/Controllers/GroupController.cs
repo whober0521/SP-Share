@@ -34,7 +34,7 @@ namespace SP_Share.Controllers
             if (Session["UserAccount"] == null)
                 return RedirectToAction("Index", "Home");
 
-            groupSrv.Insert(Name);
+            groupSrv.Insert(Name, Session["IsAdmin"].ToString());
 
             return RedirectToAction("Group");
         }
@@ -50,12 +50,12 @@ namespace SP_Share.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        public ActionResult Limit(int? Idx, int? Limit)
+        public ActionResult Limit(int? Idx, int? Limit, string size)
         {
             if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
                 return RedirectToAction("Index", "Default");
 
-            groupSrv.Limit(Idx, Limit);
+            groupSrv.Limit(Idx, Limit, size);
 
             return RedirectToAction("Index");
         }

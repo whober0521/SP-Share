@@ -24,7 +24,7 @@ namespace SP_Share.Services
             return db.Group.FirstOrDefault(x => x.Idx == idx);
         }
 
-        public bool Insert(string name)
+        public bool Insert(string name, string isadmin)
         {
             bool result = false;
 
@@ -33,6 +33,8 @@ namespace SP_Share.Services
                 Group group = new Group();
 
                 group.Name = name;
+
+                if (isadmin == "True") group.IsActive = true;
 
                 db.Entry(group).State = EntityState.Added;
                 db.SaveChanges();
@@ -73,7 +75,7 @@ namespace SP_Share.Services
             return result;
         }
 
-        public bool Limit(int? idx, int? limit)
+        public bool Limit(int? idx, int? limit, string size)
         {
             bool result = false;
 
@@ -84,6 +86,7 @@ namespace SP_Share.Services
                 if (group != null && limit != null)
                 {
                     group.Limit = (int)limit;
+                    group.Size = size;
 
                     db.Entry(group).State = EntityState.Modified;
                     db.SaveChanges();

@@ -4,7 +4,7 @@
 <div class="modal-dialog modal-sm">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Set Space Consumption (MB)</h5>
+            <h5 class="modal-title">Set Group Space Consumption</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -14,7 +14,7 @@
             @Html.AntiForgeryToken()
 
             <div class="modal-body">
-                @Html.HiddenFor(x => x.Account)
+                @Html.HiddenFor(x => x.Idx)
                 @Html.EditorFor(model => model.Limit, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.DropDownList("Size", Html.SizeDropDownList(), new { @class = "form-control" })
             </div>

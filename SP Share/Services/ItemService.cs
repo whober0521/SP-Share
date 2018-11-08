@@ -17,14 +17,20 @@ namespace SP_Share.Services
 
         public Item[] GetItemList(string account, string isadmin)
         {
-            Item[] result;
+            IQueryable<Item> result = db.Item;
 
             if (isadmin == "True")
-                result = db.Item.OrderBy(x => x.Group).ToArray();
+            {
+                result = result.OrderBy(x => x.Group);
+            }
             else
-                result = db.Item.Where(x => x.Creator == account).OrderBy(x => x.Group).ToArray();
+            {
+                IQueryable<int> groups = db.UserGroup.Where(x => x.User == account).Select(x => x.Group);
 
-            return result;
+                result = result.Where(x => groups.Contains(x.Group));
+            }
+
+            return result.OrderBy(x => x.GroupDetail.Name).ToArray();
         }
 
         public ItemLimit[] GetItemLimitList()
@@ -71,49 +77,62 @@ namespace SP_Share.Services
 
             try
             {
-                //Group Limint
-                int sum = 0;
-
-                if (db.Item.Where(x => x.Group == item.Group).Count() != 0)
-                    sum = db.Item.Where(x => x.Group == item.Group && x.Idx != item.Idx).Sum(x => x.Length);
-
-                if (sum + content.Length > db.Group.FirstOrDefault(x => x.Idx == item.Group).Limit * 1024 * 1024) return "Not enough group space";
-
-                //User Limit
-                sum = 0;
-
-                if (db.Item.Where(x => x.Creator == creator).Count() != 0)
-                    sum = db.Item.Where(x => x.Creator == creator && x.Idx != item.Idx).Sum(x => x.Length);
-
-                if (sum + content.Length > db.User.FirstOrDefault(x => x.Account == creator).Limit * 1024 * 1024) return "Not enough user space";
-
                 //Item Limit
                 string[] filenames = fileName.Split('.');
+                long limit = 0;
 
                 if (filenames.Length > 1)
                 {
-                    string ext = filenames[filenames.Length - 1];
+                    string ext = filenames[filenames.Length - 1].ToLower();
 
-                    ItemLimit limit = db.ItemLimit.FirstOrDefault(x => x.Name == ext);
+                    ItemLimit _limit = db.ItemLimit.FirstOrDefault(x => x.Name == ext);
 
-                    if (limit != null)
+                    if (_limit != null)
                     {
-                        if (content.Length > limit.Limit * 1024 * 1024)
-                            return "Item Limit  " + limit.Limit + " MB";
+                        limit = TotalLimit(_limit.Limit, _limit.Size);
+
+                        if (content.Length > limit) return _limit.Name + " file limit:  " + _limit.Limit + " " + _limit.Size;
                     }
                 }
 
-                using (MemoryStream ms = new MemoryStream())
+                long sum = 0;
+
+                //Group Limint
+                if (db.Item.Where(x => x.Group == item.Group && x.Idx != item.Idx).Count() != 0)
+                    sum = db.Item.Where(x => x.Group == item.Group && x.Idx != item.Idx).Sum(x => x.Length);
+
+                Group _group = db.Group.FirstOrDefault(x => x.Idx == item.Group);
+
+                limit = TotalLimit(_group.Limit, _group.Size);
+
+                if (sum + content.Length > limit) return "Not enough group space";
+
+                //User Limit
+                if (item.Creator == creator || string.IsNullOrWhiteSpace(item.Creator))
                 {
-                    content.CopyTo(ms);
-                    item.Content = ms.GetBuffer();
-                    item.Length = item.Content.Length;
+                    sum = 0;
+
+                    if (db.Item.Where(x => x.Creator == creator && x.Idx != item.Idx).Count() != 0)
+                        sum = db.Item.Where(x => x.Creator == creator && x.Idx != item.Idx).Sum(x => x.Length);
+
+                    User _user = db.User.FirstOrDefault(x => x.Account == creator);
+
+                    limit = TotalLimit(_user.Limit, _user.Size);
+
+                    if (sum + content.Length > limit) return "Not enough user space";
                 }
 
                 item.AccessTime = DateTime.Now;
 
                 if (item.Idx == 0)
                 {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        content.CopyTo(ms);
+                        item.Content = ms.GetBuffer();
+                        item.Length = item.Content.Length;
+                    }
+
                     item.Creator = creator;
                     item.CreateTime = DateTime.Now;
 
@@ -148,16 +167,50 @@ namespace SP_Share.Services
             return result;
         }
 
-        public bool SaveLimit(ItemLimit limit)
+        private long TotalLimit(int limit, string size)
+        {
+            long result = 0;
+
+            switch (size)
+            {
+                case "Bytes":
+                    result = limit;
+                    break;
+                case "KB":
+                    result = limit * 1024;
+                    break;
+                case "MB":
+                    result = limit * 1024 * 1024;
+                    break;
+                case "GB":
+                    result = limit * 1024 * 1024 * 1024;
+                    break;
+            }
+
+            return result;
+        }
+
+        public bool SaveLimit(ItemLimit _limit)
         {
             bool result = false;
 
             try
             {
-                if (db.ItemLimit.FirstOrDefault(x => x.Name == limit.Name) == null)
+                ItemLimit limit = db.ItemLimit.FirstOrDefault(x => x.Name == _limit.Name);
+
+                if (limit == null)
+                {
+                    limit.Name = limit.Name.ToLower();
+
                     db.Entry(limit).State = EntityState.Added;
+                }
                 else
+                {
+                    limit.Limit = _limit.Limit;
+                    limit.Size = _limit.Size;
+
                     db.Entry(limit).State = EntityState.Modified;
+                }
 
                 db.SaveChanges();
 

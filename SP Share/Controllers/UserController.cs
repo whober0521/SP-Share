@@ -32,12 +32,12 @@ namespace SP_Share.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        public ActionResult Limit(string Account, int? Limit)
+        public ActionResult Limit(string Account, int? Limit, string Size)
         {
             if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
                 return RedirectToAction("Index", "Default");
 
-            userSrv.Limit(Account, Limit);
+            userSrv.Limit(Account, Limit, Size);
 
             return RedirectToAction("Index");
         }

@@ -102,7 +102,7 @@ namespace SP_Share.Services
             return result;
         }
 
-        public bool Limit(string account, int? limit)
+        public bool Limit(string account, int? limit, string size)
         {
             bool result = false;
 
@@ -113,6 +113,7 @@ namespace SP_Share.Services
                 if (user != null && limit != null)
                 {
                     user.Limit = (int)limit;
+                    user.Size = size;
 
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();

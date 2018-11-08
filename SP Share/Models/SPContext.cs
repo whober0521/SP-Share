@@ -53,6 +53,7 @@ namespace SP_Share.Models
         [Display(Name = "Is Administrator?")]
         public bool IsAdmin { get; set; }
 
+        [Display(Name = "Active")]
         public bool IsActive { get; set; }
     }
 

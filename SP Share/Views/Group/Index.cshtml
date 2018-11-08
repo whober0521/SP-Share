@@ -18,7 +18,10 @@
     {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Name)</td>
-            <td>@Html.DisplayFor(modelItem => item.Limit) MB</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Limit)
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
             <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
             <td>
                 @if (!item.IsActive)

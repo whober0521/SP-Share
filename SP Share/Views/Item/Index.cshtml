@@ -32,7 +32,7 @@
             <td>@Html.DisplayFor(modelItem => item.CreateTime)</td>
             <td>@Html.DisplayFor(modelItem => item.AccessTime)</td>
             <td>
-                @if (Session["UserName"].ToString() == item.Creator || Session["IsAdmin"].ToString() == "True")
+                @if (Session["UserAccount"].ToString() == item.Creator || Session["IsAdmin"].ToString() == "True")
                 {
                     @Html.ActionLink("Edit", "Edit", new { idx = item.Idx })
                     <a>|</a>
