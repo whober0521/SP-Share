@@ -17,5 +17,17 @@ namespace SP_Share.Helpers
 
             return result;
         }
+
+        public static List<SelectListItem> SizeDropDownList(this HtmlHelper helper)
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+
+            result.Add(new SelectListItem() { Value = "Bytes", Text = "Bytes" });
+            result.Add(new SelectListItem() { Value = "KB", Text = "KB", Selected = true });
+            result.Add(new SelectListItem() { Value = "MB", Text = "MB" });
+            result.Add(new SelectListItem() { Value = "GB", Text = "GB" });
+
+            return result;
+        }
     }
 }

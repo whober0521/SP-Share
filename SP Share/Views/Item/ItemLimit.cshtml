@@ -1,4 +1,5 @@
 ﻿@model SP_Share.Models.ItemLimit
+@using SP_Share.Helpers
 
 @{
     ViewBag.Title = "Item Limit";
@@ -6,11 +7,9 @@
 
 <h2>Item Limit</h2>
 
-
 @using (Html.BeginForm("SaveLimit", "Item", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(x => x.Idx)
 
     <div class="form-horizontal">
         <hr />
@@ -32,8 +31,16 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Size, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Size", Html.SizeDropDownList(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @if (Model.Idx == 0)
+                @if (Model.Name == null)
                 {
                     <input type="submit" value="Create" class="btn btn-default" />
                 }

@@ -10,6 +10,7 @@ namespace SP_Share.Models
     {
         public DbSet<User> User { get; set; }
         public DbSet<Group> Group { get; set; }
+        public DbSet<UserGroup> UserGroup { get; set; }
         public DbSet<Item> Item { get; set; }
         public DbSet<ItemLimit> ItemLimit { get; set; }
 
@@ -47,6 +48,7 @@ namespace SP_Share.Models
         public int? Group { get; set; }
 
         public int Limit { get; set; }
+        public string Size { get; set; }
 
         [Display(Name = "Is Administrator?")]
         public bool IsAdmin { get; set; }
@@ -66,16 +68,23 @@ namespace SP_Share.Models
         public string Name { get; set; }
 
         public int Limit { get; set; }
+        public string Size { get; set; }
 
         public bool IsActive { get; set; }
+    }
+
+    public class UserGroup
+    {
+        [Key, Column(Order = 0)]
+        public string User { get; set; }
+
+        [Key, Column(Order = 1)]
+        public int Group { get; set; }
     }
 
     public class ItemLimit
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Idx { get; set; }
-
         [Required]
         [DisplayName("Extension Name")]
         [StringLength(16)]
@@ -83,6 +92,7 @@ namespace SP_Share.Models
         public string Name { get; set; }
 
         public int Limit { get; set; }
+        public string Size { get; set; }
     }
 
     public class Item

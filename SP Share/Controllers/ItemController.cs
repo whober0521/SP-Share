@@ -48,7 +48,7 @@ namespace SP_Share.Controllers
             if (Session["UserAccount"] == null)
                 return RedirectToAction("Index", "Default");
 
-            TempData["ErrMsg"] = itemSrv.Save(item, contentfile.InputStream, Session["UserAccount"].ToString());
+            TempData["ErrMsg"] = itemSrv.Save(item, contentfile.InputStream, contentfile.FileName, Session["UserAccount"].ToString());
 
             return RedirectToAction("Index");
         }
@@ -80,12 +80,12 @@ namespace SP_Share.Controllers
             return View("ItemLimit", new ItemLimit());
         }
 
-        public ActionResult ItemLimit(int? idx)
+        public ActionResult ItemLimit(string ext)
         {
             if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
                 return RedirectToAction("Index", "Default");
 
-            return View(itemSrv.GetItemLimit(idx));
+            return View(itemSrv.GetItemLimit(ext));
         }
 
         [ValidateAntiForgeryToken]
@@ -99,9 +99,9 @@ namespace SP_Share.Controllers
             return RedirectToAction("ItemLimitList");
         }
 
-        public ActionResult DeleteLimit(int? idx)
+        public ActionResult DeleteLimit(string ext)
         {
-            itemSrv.DeleteLimit(idx);
+            itemSrv.DeleteLimit(ext);
 
             return RedirectToAction("ItemLimitList");
         }

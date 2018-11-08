@@ -53,6 +53,17 @@ namespace SP_Share.Services
                 user.Salt = salt;
 
                 db.Entry(user).State = EntityState.Added;
+
+                if (user.Group != null)
+                {
+                    UserGroup ug = new UserGroup();
+
+                    ug.User = user.Account;
+                    ug.Group = (int)user.Group;
+
+                    db.Entry(ug).State = EntityState.Added;
+                }
+
                 db.SaveChanges();
 
                 result = true;

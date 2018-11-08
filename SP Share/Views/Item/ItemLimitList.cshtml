@@ -19,8 +19,8 @@
         <td>@Html.DisplayFor(modelItem => item.Name)</td>
         <td>@Html.DisplayFor(modelItem => item.Limit)</td>
         <td>
-            @Html.ActionLink("Edit", "ItemLimit", new { idx=item.Idx }) |
-            @Html.ActionLink("Delete", "DeleteLimit", new { idx = item.Idx })
+            @Html.ActionLink("Edit", "ItemLimit", new { ext=item.Name }) |
+            @Html.ActionLink("Delete", "DeleteLimit", new { ext = item.Name })
         </td>
     </tr>
 }
