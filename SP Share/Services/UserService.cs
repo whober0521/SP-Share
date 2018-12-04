@@ -59,7 +59,7 @@ namespace SP_Share.Services
                     UserGroup ug = new UserGroup();
 
                     ug.User = user.Account;
-                    ug.Group = (int)user.Group;
+                    ug.Group = (Guid)user.Group;
 
                     db.Entry(ug).State = EntityState.Added;
                 }

@@ -25,7 +25,7 @@ namespace SP_Share.Services
             }
             else
             {
-                IQueryable<int> groups = db.UserGroup.Where(x => x.User == account).Select(x => x.Group);
+                IQueryable<Guid> groups = db.UserGroup.Where(x => x.User == account).Select(x => x.Group);
 
                 result = result.Where(x => groups.Contains(x.Group));
             }
@@ -38,7 +38,7 @@ namespace SP_Share.Services
             return db.ItemLimit.ToArray();
         }
 
-        public Item GetItem(int? idx)
+        public Item GetItem(Guid? idx)
         {
             Item item = new Item();
 
@@ -122,17 +122,18 @@ namespace SP_Share.Services
                     if (sum + content.Length > limit) return "Not enough user space";
                 }
 
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    content.CopyTo(ms);
+                    item.Content = ms.GetBuffer();
+                    item.Length = item.Content.Length;
+                }
+
                 item.AccessTime = DateTime.Now;
 
-                if (item.Idx == 0)
+                if (item.Idx == Guid.Empty)
                 {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        content.CopyTo(ms);
-                        item.Content = ms.GetBuffer();
-                        item.Length = item.Content.Length;
-                    }
-
+                    item.Idx = Guid.NewGuid();
                     item.Creator = creator;
                     item.CreateTime = DateTime.Now;
 
@@ -224,7 +225,7 @@ namespace SP_Share.Services
             return result;
         }
 
-        public bool Delete(int? idx)
+        public bool Delete(Guid? idx)
         {
             bool result = false;
 

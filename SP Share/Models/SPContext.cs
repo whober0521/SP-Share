@@ -45,7 +45,7 @@ namespace SP_Share.Models
 
         [NotMapped]
         [Display(Name = "Group")]
-        public int? Group { get; set; }
+        public Guid? Group { get; set; }
 
         public int Limit { get; set; }
         public string Size { get; set; }
@@ -60,8 +60,7 @@ namespace SP_Share.Models
     public class Group
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Idx { get; set; }
+        public Guid Idx { get; set; }
 
         [Required]
         [StringLength(16)]
@@ -80,7 +79,7 @@ namespace SP_Share.Models
         public string User { get; set; }
 
         [Key, Column(Order = 1)]
-        public int Group { get; set; }
+        public Guid Group { get; set; }
     }
 
     public class ItemLimit
@@ -99,8 +98,7 @@ namespace SP_Share.Models
     public class Item
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Idx { get; set; }
+        public Guid Idx { get; set; }
 
         [DisplayName("Item Name")]
         [StringLength(68)]
@@ -115,7 +113,7 @@ namespace SP_Share.Models
         public byte[] Content { get; set; }
         public int Length { get; set; }
 
-        public int Group { get; set; }
+        public Guid Group { get; set; }
 
         [DisplayName("Creator's Name")]
         [StringLength(16)]

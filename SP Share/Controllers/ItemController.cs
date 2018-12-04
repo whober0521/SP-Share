@@ -2,6 +2,7 @@
 using SP_Share.Models;
 using System.Web.Mvc;
 using System.Web;
+using System;
 
 namespace SP_Share.Controllers
 {
@@ -30,7 +31,7 @@ namespace SP_Share.Controllers
             return View("Item", new Item());
         }
 
-        public ActionResult Edit(int? idx)
+        public ActionResult Edit(Guid? idx)
         {
             if (Session["UserAccount"] == null)
                 return RedirectToAction("Index", "Default");
@@ -53,14 +54,14 @@ namespace SP_Share.Controllers
             return RedirectToAction("Index");
         }
 
-        public FileResult Download(int? idx)
+        public FileResult Download(Guid? idx)
         {
             Item item = itemSrv.GetItem(idx);
 
             return File(item.Content, System.Net.Mime.MediaTypeNames.Application.Octet, item.Name);
         }
 
-        public ActionResult Delete(int? idx)
+        public ActionResult Delete(Guid? idx)
         {
             itemSrv.Delete(idx);
 

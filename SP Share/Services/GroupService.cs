@@ -19,7 +19,7 @@ namespace SP_Share.Services
                 return db.Group.Where(x => x.IsActive).ToArray();
         }
 
-        public Group GetGroup(int? idx)
+        public Group GetGroup(Guid? idx)
         {
             return db.Group.FirstOrDefault(x => x.Idx == idx);
         }
@@ -32,6 +32,7 @@ namespace SP_Share.Services
             {
                 Group group = new Group();
 
+                group.Idx = Guid.NewGuid();
                 group.Name = name;
 
                 if (isadmin == "True") group.IsActive = true;
@@ -49,7 +50,7 @@ namespace SP_Share.Services
             return result;
         }
 
-        public bool Active(int? idx)
+        public bool Active(Guid? idx)
         {
             bool result = false;
 
@@ -75,7 +76,7 @@ namespace SP_Share.Services
             return result;
         }
 
-        public bool Limit(int? idx, int? limit, string size)
+        public bool Limit(Guid? idx, int? limit, string size)
         {
             bool result = false;
 

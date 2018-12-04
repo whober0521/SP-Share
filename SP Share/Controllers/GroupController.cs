@@ -1,5 +1,6 @@
 ﻿using SP_Share.Services;
 using System.Web.Mvc;
+using System;
 
 namespace SP_Share.Controllers
 {
@@ -39,7 +40,7 @@ namespace SP_Share.Controllers
             return RedirectToAction("Group");
         }
 
-        public ActionResult Active(int? idx)
+        public ActionResult Active(Guid? idx)
         {
             if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
                 return RedirectToAction("Index", "Default");
@@ -50,7 +51,7 @@ namespace SP_Share.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        public ActionResult Limit(int? Idx, int? Limit, string size)
+        public ActionResult Limit(Guid? Idx, int? Limit, string size)
         {
             if (Session["IsAdmin"] == null || Session["IsAdmin"].ToString() != "True")
                 return RedirectToAction("Index", "Default");
@@ -60,7 +61,7 @@ namespace SP_Share.Controllers
             return RedirectToAction("Index");
         }
 
-        public PartialViewResult _Limit(int? idx)
+        public PartialViewResult _Limit(Guid? idx)
         {
             return PartialView(groupSrv.GetGroup(idx));
         }
